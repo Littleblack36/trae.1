@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>足球第四官员比赛记录</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+    <!-- 背景图片容器 -->
+    <div class="background-top"></div>
+    <div class="background-bottom"></div>
+    
+    <div class="container">
+        <div class="logo-container">
+            <img src="足协logo.jpg" alt="上海交通大学足球协会" class="logo">
+        </div>
+        <h1>足球第四官员比赛记录</h1>
+        
+        <!-- 比赛基本信息 -->
+        <section class="match-info">
+            <h2>比赛基本信息</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="match-name">比赛名称</label>
+                    <input type="text" id="match-name" placeholder="例如：2025新生杯足球赛" value="上海交通大学2025年新生杯">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="match-date">比赛时间</label>
+                    <input type="date" id="match-date" value="2025-10-12">
+                </div>
+                <div class="form-group">
+                    <label for="match-type">比赛性质</label>
+                    <input type="text" id="match-type" placeholder="例如：小组赛A组第一轮">
+                </div>
+            </div>
+        </section>
+
+        <!-- 队伍信息 -->
+        <section class="teams-info">
+            <h2>队伍信息</h2>
+            <div class="teams-container">
+                <div class="team-info">
+                    <h3>主队</h3>
+                    <input type="text" id="home-team" placeholder="主队名称" class="team-name">
+                    <input type="number" id="home-score" value="0" class="team-score">
+                </div>
+                <div class="score-separator">-</div>
+                <div class="team-info">
+                    <h3>客队</h3>
+                    <input type="text" id="away-team" placeholder="客队名称" class="team-name">
+                    <input type="number" id="away-score" value="0" class="team-score">
+                </div>
+            </div>
+        </section>
+
+        <!-- 首发阵容 -->
+        <section class="lineups">
+            <div class="lineup-section">
+                <h3>主队首发</h3>
+                <div class="lineup-list" id="home-lineup"></div>
+                <button id="add-home-player" class="add-player-btn">添加首发</button>
+            </div>
+            <div class="lineup-section">
+                <h3>客队首发</h3>
+                <div class="lineup-list" id="away-lineup"></div>
+                <button id="add-away-player" class="add-player-btn">添加首发</button>
+            </div>
+        </section>
+
+        <!-- 替补阵容 -->
+        <section class="substitutes">
+            <div class="lineup-section">
+                <h3>主队替补</h3>
+                <div class="lineup-list" id="home-substitutes"></div>
+                <button id="add-home-substitute" class="add-player-btn">添加替补</button>
+            </div>
+            <div class="lineup-section">
+                <h3>客队替补</h3>
+                <div class="lineup-list" id="away-substitutes"></div>
+                <button id="add-away-substitute" class="add-player-btn">添加替补</button>
+            </div>
+        </section>
+
+        <!-- 比赛事件记录 -->
+        <section class="match-events">
+            <h2>比赛事件记录</h2>
+            <div class="event-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="event-minute">时间(分钟)</label>
+                        <input type="number" id="event-minute" placeholder="分钟" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="event-team">队伍</label>
+                        <select id="event-team">
+                            <option value="home">主队</option>
+                            <option value="away">客队</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="event-type">事件类型</label>
+                        <select id="event-type">
+                            <option value="goal">普通进球</option>
+                            <option value="own-goal">乌龙球</option>
+                            <option value="penalty-goal">点球进球</option>
+                            <option value="penalty-miss">点球不进</option>
+                            <option value="substitution">换人</option>
+                            <option value="yellow">黄牌</option>
+f                            <option value="straight-red">直红</option>
+                            <option value="second-yellow">两黄变一红</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row" id="player-field">
+                    <div class="form-group">
+                        <label for="event-player">球员</label>
+                        <input type="text" id="event-player" placeholder="球员姓名">
+                    </div>
+                </div>
+                
+                <div class="form-row" id="substitution-fields" style="display: none;">
+                    <div class="form-group">
+                        <label for="player-out">下场球员</label>
+                        <input type="text" id="player-out" placeholder="下场球员姓名">
+                    </div>
+                    <div class="form-group">
+                        <label for="player-in">上场球员</label>
+                        <input type="text" id="player-in" placeholder="上场球员姓名">
+                    </div>
+                </div>
+                
+                <button id="add-event" class="add-event-btn">添加事件</button>
+            </div>
+            
+            <div class="events-list" id="events-list">
+                <!-- 事件列表将在这里动态生成 -->
+            </div>
+        </section>
+
+        <!-- 裁判信息 -->
+        <section class="referees-info">
+            <h2>裁判信息</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="main-referee">主裁判</label>
+                    <input type="text" id="main-referee" placeholder="主裁判姓名">
+                </div>
+                <div class="form-group">
+                    <label for="assistant-referee1">助理裁判1</label>
+                    <input type="text" id="assistant-referee1" placeholder="助理裁判1姓名">
+                </div>
+                <div class="form-group">
+                    <label for="assistant-referee2">助理裁判2</label>
+                    <input type="text" id="assistant-referee2" placeholder="助理裁判2姓名">
+                </div>
+                <div class="form-group">
+                    <label for="fourth-official">第四官员</label>
+                    <input type="text" id="fourth-official" placeholder="第四官员姓名">
+                </div>
+            </div>
+        </section>
+
+        <!-- 导出按钮 -->
+        <section class="export-section">
+            <button id="export-excel" class="export-btn">导出Excel简报</button>
+        </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="script.js"></script>
+    
+    <!-- 背景图片切换脚本 -->
+    <script>
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            
+            // 计算滚动进度
+            const scrollProgress = scrollPosition / (documentHeight - windowHeight);
+            
+            // 获取背景元素
+            const backgroundTop = document.querySelector('.background-top');
+            const backgroundBottom = document.querySelector('.background-bottom');
+            
+            // 根据滚动进度调整背景透明度
+            // 上半部分：背景1显示，背景2隐藏
+            // 下半部分：背景1隐藏，背景2显示
+            if (scrollProgress < 0.5) {
+                backgroundTop.style.opacity = 0.3;
+                backgroundBottom.style.opacity = 0;
+            } else {
+                backgroundTop.style.opacity = 0;
+                backgroundBottom.style.opacity = 0.3;
+            }
+        });
+    </script>
+  </body>
+</html>

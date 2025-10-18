@@ -1,0 +1,721 @@
+/* 基础样式重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 全局样式 - 色彩体系定义 */
+:root {
+    --primary-color: #006400; /* 深绿色主色调 - 足球场 */
+    --secondary-color: #e74c3c; /* 红色辅助色 - 赛事活力 */
+    --accent-color: #27ae60; /* 绿色按钮 */
+    --neutral-color: #f8f9fa; /* 浅灰色中性背景 */
+    --text-primary: #2c3e50; /* 主要文字颜色 */
+    --text-secondary: #555; /* 次要文字颜色 */
+    --border-color: #ddd; /* 边框颜色 */
+    --shadow-light: 0 2px 10px rgba(0, 0, 0, 0.08); /* 浅色阴影 */
+    --shadow-medium: 0 4px 15px rgba(0, 0, 0, 0.1); /* 中等阴影 */
+    --border-radius: 8px; /* 统一边框圆角 */
+    --transition: all 0.3s ease; /* 统一过渡效果 */
+}
+
+/* 页面基础样式 */
+body {
+    font-family: 'Microsoft YaHei', 'Noto Sans SC', sans-serif; /* 易读性强的中文字体 */
+    line-height: 1.6;
+    color: var(--text-primary);
+    background-color: #f0f4f0;
+    padding: 20px;
+    min-height: 100vh;
+    position: relative;
+    margin: 0;
+}
+
+/* 背景图片容器 - 开头 */
+.background-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-image: url('背景1.jpg');
+    background-size: cover;
+    background-position: center top;
+    opacity: 0.3; /* 略微淡化但更明显 */
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* 背景图片容器 - 结尾 */
+.background-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-image: url('背景2.jpg');
+    background-size: cover;
+    background-position: center bottom;
+    opacity: 0; /* 初始隐藏 */
+    z-index: -1;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+/* 移除背景遮罩，让背景图片完全显示 */
+/* body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.2);
+    z-index: -1;
+} */
+
+/* 主容器 */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-medium);
+    position: relative;
+    overflow: hidden;
+}
+
+/* 足球纹理背景装饰 */
+.container::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 300px;
+    height: 300px;
+    background-image: 
+        linear-gradient(45deg, transparent 48%, rgba(0, 100, 0, 0.05) 48%, rgba(0, 100, 0, 0.05) 52%, transparent 52%),
+        linear-gradient(-45deg, transparent 48%, rgba(0, 100, 0, 0.05) 48%, rgba(0, 100, 0, 0.05) 52%, transparent 52%);
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.container::after {
+    content: '';
+    position: absolute;
+    bottom: -150px;
+    left: -150px;
+    width: 400px;
+    height: 400px;
+    background-image: 
+        linear-gradient(45deg, transparent 48%, rgba(0, 100, 0, 0.05) 48%, rgba(0, 100, 0, 0.05) 52%, transparent 52%),
+        linear-gradient(-45deg, transparent 48%, rgba(0, 100, 0, 0.05) 48%, rgba(0, 100, 0, 0.05) 52%, transparent 52%);
+    border-radius: 50%;
+    z-index: 0;
+}
+
+/* Logo样式 */
+.logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+    position: relative;
+    z-index: 1;
+}
+
+.logo {
+    max-width: 180px;
+    height: auto;
+    border-radius: 50%;
+    box-shadow: var(--shadow-medium);
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+/* 标题样式 - 统一字体层级 */
+h1 {
+    text-align: center;
+    color: var(--secondary-color);
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
+}
+
+h2 {
+    color: var(--primary-color);
+    margin: 40px 0 20px;
+    padding-bottom: 12px;
+    border-bottom: 3px solid var(--primary-color);
+    font-size: 1.8em;
+    font-weight: 600;
+    position: relative;
+    z-index: 1;
+}
+
+h2::after {
+    content: '⚽';
+    margin-left: 10px;
+    font-size: 0.9em;
+    opacity: 0.7;
+}
+
+h3 {
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    font-size: 1.4em;
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
+}
+
+/* 通用卡片样式 */
+section {
+    margin-bottom: 40px;
+    position: relative;
+    z-index: 1;
+}
+
+/* 表单样式 - 卡片式设计 */
+.match-info,
+.teams-info,
+.lineups,
+.substitutes,
+.match-events,
+.referees-info {
+    background-color: white;
+    padding: 25px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--border-color);
+}
+
+.match-info:hover,
+.teams-info:hover,
+.lineups:hover,
+.substitutes:hover,
+.match-events:hover,
+.referees-info:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+.form-group {
+    margin-bottom: 18px;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-size: 15px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 16px;
+    transition: var(--transition);
+    background-color: white;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 100, 0, 0.1);
+    transform: translateY(-1px);
+}
+
+.form-group input::placeholder {
+    color: #aaa;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-bottom: 20px;
+}
+
+/* 队伍信息样式 - 卡片式设计 */
+.teams-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 50px;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.team-info {
+    text-align: center;
+    flex: 0 0 auto;
+    max-width: 320px;
+    background-color: var(--neutral-color);
+    padding: 25px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    transition: var(--transition);
+}
+
+.team-info:hover {
+    transform: scale(1.02);
+    box-shadow: var(--shadow-medium);
+}
+
+.team-name {
+    font-size: 26px;
+    font-weight: 700;
+    text-align: center;
+    margin: 15px 0 0;
+    padding: 12px;
+    border-radius: var(--border-radius);
+    background-color: white;
+    border: 2px solid var(--primary-color);
+    transition: var(--transition);
+    width: fit-content;
+}
+
+.team-name:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+}
+
+.team-score {
+    font-size: 52px;
+    font-weight: 800;
+    text-align: center;
+    width: 90px;
+    height: 90px;
+    margin: 20px auto;
+    border: 3px solid var(--secondary-color);
+    border-radius: 50%;
+    background-color: white;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.team-score:hover,
+.team-score:focus {
+    border-color: var(--primary-color);
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(0, 100, 0, 0.2);
+}
+
+.score-separator {
+    font-size: 56px;
+    font-weight: 800;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90px;
+    width: 30px;
+    margin: 20px 0;
+}
+
+/* 阵容列表样式 - 卡片式设计 */
+.lineups,
+.substitutes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.lineup-section {
+    background-color: var(--neutral-color);
+    padding: 25px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    border-left: 5px solid var(--primary-color);
+    transition: var(--transition);
+}
+
+.lineup-section:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-medium);
+}
+
+/* 主队和客队颜色区分 */
+.lineups > .lineup-section:nth-child(1),
+.substitutes > .lineup-section:nth-child(1) {
+    border-left-color: var(--primary-color);
+}
+
+.lineups > .lineup-section:nth-child(2),
+.substitutes > .lineup-section:nth-child(2) {
+    border-left-color: var(--secondary-color);
+}
+
+.lineup-list {
+    margin-bottom: 20px;
+    max-height: 320px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+/* 自定义滚动条 */
+.lineup-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.lineup-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.lineup-list::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+.lineup-list::-webkit-scrollbar-thumb:hover {
+    background: #004d00;
+}
+
+.player-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    margin-bottom: 12px;
+    background-color: white;
+    border-radius: var(--border-radius);
+    border: 2px solid var(--border-color);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.player-item:hover {
+    border-color: var(--primary-color);
+    transform: translateX(5px);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.player-number {
+    width: 60px;
+    padding: 8px 10px;
+    text-align: center;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    font-size: 16px;
+    transition: var(--transition);
+}
+
+.player-number:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+.player-name {
+    flex: 1;
+    padding: 8px 12px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    margin: 0 12px;
+    transition: var(--transition);
+}
+
+.player-name:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+/* 队长标识 */
+.captain-checkbox {
+    margin-left: 10px;
+    transform: scale(1.2);
+}
+
+.captain-checkbox:checked {
+    accent-color: var(--secondary-color);
+}
+
+.captain-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+/* 删除按钮样式 */
+.remove-btn {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 500;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.remove-btn:hover {
+    background-color: #c0392b;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+}
+
+.remove-btn:active {
+    transform: translateY(0);
+}
+
+/* 按钮样式 - 统一设计 */
+.add-player-btn,
+.add-event-btn {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: var(--border-radius);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.add-player-btn:hover,
+.add-event-btn:hover {
+    background-color: #229954;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(39, 174, 96, 0.3);
+}
+
+.add-player-btn:active,
+.add-event-btn:active {
+    transform: translateY(0);
+}
+
+.add-player-btn::before,
+.add-event-btn::before {
+    content: '➕';
+    font-size: 18px;
+}
+
+/* 导出按钮样式 */
+.export-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 16px 35px;
+    border-radius: var(--border-radius);
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.export-btn:hover {
+    background-color: #004d00;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 100, 0, 0.3);
+}
+
+.export-btn:active {
+    transform: translateY(0);
+}
+
+.export-btn::before {
+    content: '📊';
+    font-size: 20px;
+}
+
+/* 事件记录样式 - 卡片式设计 */
+.event-form {
+    background-color: var(--neutral-color);
+    padding: 25px;
+    border-radius: var(--border-radius);
+    margin-bottom: 25px;
+    box-shadow: var(--shadow-light);
+    border: 1px solid var(--border-color);
+}
+
+.events-list {
+    max-height: 450px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+/* 自定义滚动条 */
+.events-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.events-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.events-list::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+.events-list::-webkit-scrollbar-thumb:hover {
+    background: #004d00;
+}
+
+.event-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    background-color: white;
+    border-radius: var(--border-radius);
+    border: 2px solid var(--border-color);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.event-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.event-info {
+    flex: 1;
+}
+
+.event-minute {
+    font-weight: bold;
+    margin-right: 12px;
+    color: var(--primary-color);
+    font-size: 18px;
+    background-color: var(--neutral-color);
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.event-icon {
+    margin-right: 10px;
+    font-size: 20px;
+    width: 24px;
+    text-align: center;
+}
+
+/* 事件类型颜色标识 */
+.event-type-goal { color: #27ae60; }
+.event-type-yellow { color: #f39c12; }
+.event-type-red { color: #e74c3c; }
+.event-type-substitution { color: #9b59b6; }
+.event-type-own-goal { color: #e67e22; }
+.event-type-penalty-goal { color: #8e44ad; }
+.event-type-penalty-miss { color: #34495e; }
+
+/* 裁判信息样式 */
+.referees-info .form-row {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+/* 导出区域 */
+.export-section {
+    text-align: center;
+    margin-top: 50px;
+    padding-top: 35px;
+    border-top: 3px solid var(--border-color);
+    position: relative;
+}
+
+.export-section::before {
+    content: '🏆';
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    padding: 0 20px;
+    font-size: 30px;
+}
+
+/* 响应式设计 - 增强移动端体验 */
+@media (max-width: 768px) {
+    body {
+        padding: 15px;
+        background-size: 30px 30px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    h1 {
+        font-size: 2em;
+    }
+    
+    h2 {
+        font-size: 1.5em;
+    }
+    
+    .lineups,
+    .substitutes {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .teams-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .team-name {
+        font-size: 22px;
+    }
+    
+    .team-score {
+        font-size: 40px;
+        width: 70px;
+        height: 70px;
+    }
+    
+    .score-separator {
+        font-size: 36px;
+        padding: 0;
+    }
+    
+    .export-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
